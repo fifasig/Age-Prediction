@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Age and Gender Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #e6e6fa; /* Light purple */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .inner-container {
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        }
+
+        h1 {
+            text-align: center;
+            color: #9370DB; /* Medium Purple */
+        }
+
+        .btn-primary {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 180px;
+            height: 50px;
+            border-radius: 25px;
+            background-color: #9370DB; /* Medium Purple */
+            border-color: #9370DB; /* Medium Purple */
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+            margin-bottom: 10px; /* Added separation between buttons */
+        }
+
+        .btn-primary:hover {
+            background-color: #8A2BE2; /* Blue Violet */
+            border-color: #8A2BE2; /* Blue Violet */
+            transform: scale(1.05);
+        }
+
+        .btn-primary:focus {
+            box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.5); /* Blue Violet */
+        }
+
+        .preview-image {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inner-container">
+            <h1 class="mb-4">Age and Gender Prediction</h1>
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <div class="text-center">
+                    <input class="form-control" type="file" name="image" id="imageInput" accept="image/*" onchange="previewImage(event)" style="display: none;">
+                    <label for="imageInput" class="btn btn-primary">Select Image</label>
+                </div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" type="submit">Predict</button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <img id="imagePreview" class="preview-image" src="#" alt="Preview" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var imageInput = event.target;
+            var imagePreview = document.getElementById('imagePreview');
+            var files = imageInput.files;
+
+            if (files && files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
